@@ -1,0 +1,234 @@
+:root {
+  --dark-purple: hsl(251, 16%, 14%);
+  --gray-blue: hsl(237, 18%, 59%);
+  --soft-red: hsl(345, 95%, 68%);
+  --blue-600: hsl(236, 21%, 26%);
+  --blue-700: hsl(235, 16%, 14%);
+  --blue-800: hsl(234, 17%, 12%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: var(--dark-purple);
+  background-image: url("/images/pattern-hills.svg"), url("/images/bg-stars.svg");
+  background-repeat: no-repeat;
+  background-position: bottom center, center;
+  background-size: contain, cover;
+  font-family: "Red Hat Text", sans-serif;
+  color: var(--gray-blue);
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 8px;
+  line-height: 1.1;
+}
+
+a {
+  color: currentColor;
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-block: 1.5rem;
+}
+
+.header {
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+}
+
+.timer-container {
+  flex-grow: 2;
+}
+
+.socials {
+  flex-basis: 2.5rem;
+}
+
+.label {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.social-link {
+  transition: all 200ms ease-out;
+  font-size: 2rem;
+}
+.social-link.fa-pinterest {
+  font-size: 1.875rem;
+}
+.social-link:hover {
+  color: var(--soft-red);
+}
+
+.footer {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+}
+.footer a {
+  padding-block: 0.25em;
+  text-underline-offset: 0.125em;
+  transition: all 200ms ease-out;
+}
+.footer a:hover {
+  text-decoration-color: var(--soft-red);
+  color: white;
+}
+
+.flip-card {
+  display: inline-flex;
+  flex-direction: column;
+  width: 10rem;
+  height: 9rem;
+  line-height: 1;
+  font-size: 5rem;
+  text-align: center;
+  transform-style: preserve-3d;
+  color: var(--soft-red);
+  font-weight: 700;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.75rem 0 0 var(--blue-800);
+}
+.flip-card .container-top,
+.flip-card .container-bottom {
+  position: relative;
+  height: 50%;
+  perspective: 30rem;
+}
+.flip-card .container-top {
+  perspective-origin: bottom;
+}
+.flip-card .container-bottom {
+  perspective-origin: top;
+}
+.flip-card .top,
+.flip-card .bottom {
+  height: 100%;
+  background: var(--blue-600);
+  overflow: hidden;
+}
+.flip-card .top-flip,
+.flip-card .bottom-flip {
+  position: absolute;
+  content: attr(data-number);
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+  background: var(--blue-600);
+}
+.flip-card .top,
+.flip-card .top-flip {
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  filter: brightness(83%);
+  padding-top: 2rem;
+}
+.flip-card .bottom,
+.flip-card .bottom-flip {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  padding-bottom: 2rem;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.flip-card .top-flip {
+  transform-origin: bottom;
+}
+.flip-card .bottom-flip {
+  transform-origin: top;
+  transform: rotateX(90deg);
+}
+.flip-card.animate .top-flip {
+  animation: flip-top 0.3s ease-in forwards;
+}
+.flip-card.animate .bottom-flip {
+  animation: flip-bottom 0.3s ease-out 0.3s forwards;
+}
+@keyframes flip-top {
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+@keyframes flip-bottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+.flip-card :where(.top, .top-flip, .bottom, .bottom-flip) {
+  position: relative;
+}
+.flip-card :where(.top, .top-flip, .bottom, .bottom-flip)::before,
+.flip-card :where(.top, .top-flip, .bottom, .bottom-flip)::after {
+  position: absolute;
+  content: "";
+  width: 1rem;
+  aspect-ratio: 1;
+  background: var(--blue-800);
+  border-radius: 1rem;
+}
+.flip-card :where(.top, .top-flip)::before {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+.flip-card :where(.top, .top-flip)::after {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+.flip-card :where(.bottom, .bottom-flip)::before {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.flip-card :where(.bottom, .bottom-flip)::after {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+/*# sourceMappingURL=styles.css.map */

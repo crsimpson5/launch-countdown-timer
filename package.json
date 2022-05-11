@@ -1,0 +1,24 @@
+{
+  "name": "launch-countdown-timer",
+  "version": "1.0.0",
+  "description": "![Design preview for the Launch countdown timer coding challenge](./design/desktop-preview.jpg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "sass --watch scss/main.scss:css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crsimpson5/launch-countdown-timer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crsimpson5/launch-countdown-timer/issues"
+  },
+  "homepage": "https://github.com/crsimpson5/launch-countdown-timer#readme",
+  "devDependencies": {
+    "sass": "^1.51.0"
+  }
+}

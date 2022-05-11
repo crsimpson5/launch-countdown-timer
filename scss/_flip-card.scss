@@ -1,0 +1,142 @@
+@use "sass:math";
+
+.flip-card {
+  $font-size: 5rem;
+  $width: 10rem;
+  $height: 9rem;
+  $padding: math.div($height, 2) - math.div($font-size, 2);
+
+  $br: 0.5rem;
+  $bg-color: var(--blue-600);
+  $animation-speed: 0.3s;
+
+  display: inline-flex;
+  flex-direction: column;
+  width: $width;
+  height: $height;
+  line-height: 1;
+  font-size: $font-size;
+  text-align: center;
+  transform-style: preserve-3d;
+  color: var(--soft-red);
+  font-weight: 700;
+  border-radius: $br;
+  box-shadow: 0 .75rem 0 0 var(--blue-800);
+
+  .container-top,
+  .container-bottom {
+    position: relative;
+    height: 50%;
+    perspective: 30rem;
+  }
+
+  .container-top {
+    perspective-origin: bottom;
+  }
+  .container-bottom {
+    perspective-origin: top;
+  }
+
+  .top,
+  .bottom {
+    height: 100%;
+    background: $bg-color;
+    overflow: hidden;
+  }
+
+  .top-flip,
+  .bottom-flip {
+    position: absolute;
+    content: attr(data-number);
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    overflow: hidden;
+    background: $bg-color;
+  }
+
+  .top,
+  .top-flip {
+    border-top-right-radius: $br;
+    border-top-left-radius: $br;
+    filter: brightness(83%);
+    padding-top: $padding;
+  }
+
+  .bottom,
+  .bottom-flip {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: $padding;
+    border-bottom-right-radius: $br;
+    border-bottom-left-radius: $br;
+  }
+
+  .top-flip {
+    transform-origin: bottom;
+  }
+  .bottom-flip {
+    transform-origin: top;
+    transform: rotateX(90deg);
+  }
+
+  &.animate .top-flip {
+    animation: flip-top $animation-speed ease-in forwards;
+  }
+  &.animate .bottom-flip {
+    animation: flip-bottom $animation-speed ease-out $animation-speed forwards;
+  }
+
+  @keyframes flip-top {
+    100% {
+      transform: rotateX(-90deg);
+    }
+  }
+
+  @keyframes flip-bottom {
+    0% {
+      transform: rotateX(90deg);
+    }
+    100% {
+      transform: rotateX(0);
+    }
+  }
+
+  // Corner cut-outs
+
+  :where(.top, .top-flip, .bottom, .bottom-flip) {
+    position: relative;
+  }
+
+  :where(.top, .top-flip, .bottom, .bottom-flip)::before,
+  :where(.top, .top-flip, .bottom, .bottom-flip)::after {
+    position: absolute;
+    content: "";
+    width: 1rem;
+    aspect-ratio: 1;
+    background: var(--blue-800);
+    border-radius: 1rem;
+  }
+
+  :where(.top, .top-flip)::before {
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
+  :where(.top, .top-flip)::after {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+  }
+  :where(.bottom, .bottom-flip)::before {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+  :where(.bottom, .bottom-flip)::after {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+}
