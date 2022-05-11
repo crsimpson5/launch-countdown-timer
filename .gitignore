@@ -15,4 +15,4 @@
 .DS_Store
 .prettierignore
 
-node_mudules/
+node_modules/
