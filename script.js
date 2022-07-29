@@ -7,54 +7,46 @@ const timer = {
   days: 8,
   hours: 23,
   minutes: 55,
-  seconds: 5
+  seconds: 03
 };
 
-function initDisplay() {
-  updateDisplay(daysDisplay, timer.days);
-  daysDisplay.classList.add("animate");
+const countToDate = new Date();
+countToDate.setHours(countToDate.getHours() + timer.days * 24);
+countToDate.setHours(countToDate.getHours() + timer.hours);
+countToDate.setMinutes(countToDate.getMinutes() + timer.minutes);
+countToDate.setSeconds(countToDate.getSeconds() + timer.seconds);
 
-  updateDisplay(hoursDisplay, timer.hours);
-  hoursDisplay.classList.add("animate");
+let prevTimeRemaining;
 
-  updateDisplay(minutesDisplay, timer.minutes);
-  minutesDisplay.classList.add("animate");
+setInterval(() => {
+  const currentDate = new Date();
+  const timeRemaining = Math.ceil((countToDate - currentDate) / 1000);
 
-  updateDisplay(secondsDisplay, timer.seconds);
-  secondsDisplay.classList.add("animate");
+  if (timeRemaining === prevTimeRemaining) return;
+
+  flipAll(timeRemaining);
+  prevTimeRemaining = timeRemaining;
+}, 250);
+
+function flip(flipCard, value) {
+  const currentValue = flipCard.querySelector(".top").textContent;
+  value = value.toString().padStart(2, "0");
+
+  if (value === currentValue) return;
+
+  flipCard.querySelector(".top-flip").textContent = currentValue;
+  flipCard.querySelector(".top").textContent = value;
+  flipCard.querySelector(".bottom-flip").textContent = value;
+  flipCard.querySelector(".bottom").textContent = currentValue;
+
+  flipCard.classList.remove("animate");
+  flipCard.offsetWidth; // weird hack to reset animation immediately
+  flipCard.classList.add("animate");
 }
-initDisplay();
 
-const interval = setInterval(updateTimer, 1000);
-
-function updateTimer() {
-  secondsDisplay.classList.add("animate");
-}
-
-document.addEventListener("animationend", (e) => {
-  if (!e.target.classList.contains("bottom-flip")) return;
-
-  updateDisplay(secondsDisplay, timer.seconds);
-
-  if (timer.seconds === 0) {
-    timer.seconds = 59;
-  } else {
-    timer.seconds--;
-  }
-});
-
-function updateDisplay(el, timerValue) {
-  let value = timerValue.toString().padStart(2, "0");
-  let nextValue = (timerValue - 1).toString().padStart(2, "0");
-
-  if (timerValue === 0) {
-    nextValue = "59";
-  }
-
-  el.querySelector(".top-flip").textContent = value;
-  el.querySelector(".top").textContent = nextValue;
-  el.querySelector(".bottom-flip").textContent = nextValue;
-  el.querySelector(".bottom").textContent = value;
-
-  el.classList.remove("animate");
+function flipAll(time) {
+  flip(daysDisplay, Math.floor(time / (3600 * 24)));
+  flip(hoursDisplay, Math.floor(time / 3600) % 24);
+  flip(minutesDisplay, Math.floor(time / 60) % 60);
+  flip(secondsDisplay, time % 60);
 }
