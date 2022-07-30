@@ -5,8 +5,8 @@ const secondsDisplay = document.querySelector("[data-counter='seconds'");
 
 const timer = {
   days: 8,
-  hours: 23,
-  minutes: 55,
+  hours: 0,
+  minutes: 0,
   seconds: 03
 };
 
