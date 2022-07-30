@@ -1,11 +1,4 @@
-@use "sass:math";
-
 .flip-card {
-  $font-size: 5rem;
-  $width: 10rem;
-  $height: 9rem;
-  $padding: math.div($height, 2) - math.div($font-size, 2);
-
   $br: 0.5rem;
   $bg-color: var(--blue-600);
   $animation-speed: 0.3s;
