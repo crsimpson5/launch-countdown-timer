@@ -12,16 +12,16 @@
 
   display: inline-flex;
   flex-direction: column;
-  width: $width;
-  height: $height;
-  line-height: 1;
-  font-size: $font-size;
+  width: 100%;
+  aspect-ratio: 148 / 140;
+  line-height: 0;
+  font-size: clamp(2rem, 9vw, 4.5rem);
   text-align: center;
   transform-style: preserve-3d;
   color: var(--soft-red);
   font-weight: 700;
   border-radius: $br;
-  box-shadow: 0 .75rem 0 0 var(--blue-800);
+  box-shadow: 0 0.75rem 0 0 var(--blue-800);
 
   .container-top,
   .container-bottom {
@@ -60,15 +60,16 @@
     border-top-right-radius: $br;
     border-top-left-radius: $br;
     filter: brightness(83%);
-    padding-top: $padding;
+    display: flex;
+    align-items: end;
+    justify-content: center;
   }
 
   .bottom,
   .bottom-flip {
     display: flex;
-    align-items: end;
+    align-items: start;
     justify-content: center;
-    padding-bottom: $padding;
     border-bottom-right-radius: $br;
     border-bottom-left-radius: $br;
   }
@@ -113,7 +114,7 @@
   :where(.top, .top-flip, .bottom, .bottom-flip)::after {
     position: absolute;
     content: "";
-    width: 1rem;
+    width: clamp(0.375rem, 2vw, 0.75rem);
     aspect-ratio: 1;
     background: var(--blue-800);
     border-radius: 1rem;
