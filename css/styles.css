@@ -19,7 +19,7 @@ body {
   flex-direction: column;
   margin: 0;
   background-color: var(--dark-purple);
-  background-image: url("/images/pattern-hills.svg"), url("/images/bg-stars.svg");
+  background-image: url("images/pattern-hills.svg"), url("images/bg-stars.svg");
   background-repeat: no-repeat;
   background-position: bottom 0 right 15%, center;
   background-size: auto 40%, cover;
